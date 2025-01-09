@@ -1,55 +1,42 @@
-<div class="h-screen flex flex-col">
-  <!-- Navbar no topo -->
-  <nav class="bg-blue-600 text-white p-4">
-    <h1 class="text-xl font-bold">Gerenciamento de Alunos</h1>
-  </nav>
 
-  <!-- Conteúdo principal -->
-  <div class="flex-1 p-6 bg-gray-100">
-    <div class="mb-4">
-      <button
-        pButton
-        type="button"
-        label="Adicionar Aluno"
-        class="p-button-success"
-        (click)="adicionarAluno()"
-      ></button>
- 
+<div class="w-screen h-screen ">
+
+  <app-navbar (actionClick)="handleNavbarEvent()"></app-navbar>
+  <div class="p-5 bg-slate-100 ">
+
+    <!-- Tabela Estilizada -->
+    <div class="flex flex-col w-full overflow-auto drop-shadow-md">
+      <table class="w-full table-auto">
+        <thead class="bg-white ">
+          <tr class="">
+            <th class="px-4 py-2 font-semibold text-center text-[#212529] border-r border-gray-200">Nome</th>
+            <th class="px-4 py-2 font-semibold text-center text-[#212529] border-r border-gray-200 ">Email</th>
+            <th class="px-4 py-2 font-semibold text-center text-[#212529] border-r border-gray-200 ">Data de Nascimento</th>
+            <th class="px-4 py-2 font-semibold text-center text-[#212529] border-r border-gray-200 ">Sexo</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let aluno of alunos; let i = index" class="bg-white text-[#212529] hover:bg-gray-50 ">
+            <td class="px-4 py-2 text-[#212529] border border-gray-300 ">{{ aluno.Nome }}</td>
+            <td class="px-4 py-2 text-[#212529] border border-gray-300 ">{{ aluno.Email }}</td>
+            <td class="px-4 py-2 text-[#212529] text-center border border-gray-300 ">{{ aluno.DataNascimento }}</td>
+            <td class="px-4 py-2 text-[#212529] text-center border border-gray-300 ">{{ aluno.Sexo }}</td>
+            <td class="flex flex-row justify-center py-2 space-x-2 border border-gray-300 ">
+              <i class="!text-white bg-blue-500 pi pi-pencil p-1  rounded-md hover:bg-blue-700 transition-all cursor-pointer duration-100 hover:scale-105"></i>
+              <i (click)="removerAluno(i)" class="!text-white bg-red-500 pi pi-times p-1  rounded-md hover:bg-red-700 transition-all cursor-pointer duration-100 hover:scale-105"></i>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <!-- Mensagem quando a lista estiver vazia -->
+      <div *ngIf="alunos.length === 0" class="p-5  border text-center text-[#212529] bg-white">
+        Nenhum aluno encontrado.
+      </div>
     </div>
-
-    <!-- Tabela de alunos -->
-    <p-table [value]="alunos" class="p-datatable-striped">
-      <ng-template pTemplate="header">
-        <tr>
-          <th>#</th>
-          <th>Nome</th>
-          <th>Email</th>
-          <th>Ações</th>
-        </tr>
-      </ng-template>
-      <ng-template pTemplate="body" let-aluno let-i="rowIndex">
-        <tr>
-          <td>{{ i + 1 }}</td>
-          <td>{{ aluno.nome }}</td>
-          <td>{{ aluno.email }}</td>
-          <td>
-            <button
-              pButton
-              type="button"
-              label="Editar"
-              class="p-button-warning mr-2"
-              (click)="editarAluno(aluno)"
-            ></button>
-            <button
-              pButton
-              type="button"
-              label="Excluir"
-              class="p-button-danger"
-              (click)="excluirAluno(i)"
-            ></button>
-          </td>
-        </tr>
-      </ng-template>
-    </p-table>
   </div>
+
+  <p-dialog [(visible)]="displayDialog" [modal]="true" header="Adicionar Aluno"  [style]="{width: '450px', height: '450px'}">
+    <app-add-aluno (onAddAluno)="adicionarAluno($event)"></app-add-aluno>
+  </p-dialog>
 </div>
