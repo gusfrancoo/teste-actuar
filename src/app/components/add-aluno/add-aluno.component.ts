@@ -42,7 +42,7 @@ export class AddAlunoComponent {
 
   saveAluno() {
     if (this.aluno.Nome && this.aluno.Email && this.aluno.DataNascimento && this.aluno.Sexo) {
-      this.onAddAluno.emit(this.aluno); // Emite os dados para o componente pai
+      this.onAddAluno.emit(this.aluno);
       this.resetForm();
     }
   }

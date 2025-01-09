@@ -8,10 +8,7 @@ import { DataViewModule } from 'primeng/dataview';
 import { CommonModule } from '@angular/common';
 import { AddAlunoComponent } from '../add-aluno/add-aluno.component';
 import { DialogModule } from 'primeng/dialog';
-import { ButtonModule } from 'primeng/button';
-import { InputTextModule } from 'primeng/inputtext';
-import { CalendarModule } from 'primeng/calendar';
-import { DropdownModule } from 'primeng/dropdown';
+
 
 
 
